@@ -3,24 +3,36 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Redirecting...</title>
+    <title>Fendoris 404/Redirect</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <meta name="description" content="Fendoris is a Minecraft project, community, and team. Join us online.">
+    <meta name="keywords" content="Fendoris, Fendoris Minecraft, Minecraft server, Fendoris.com, Fendoris Discord">
+    <meta name="author" content="Fendoris Team">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="Fendoris">
+    <meta property="og:description" content="Fendoris is a Minecraft project, community, and team.">
+    <meta property="og:image" content="https://fendoris.com/fendoris-8-25.png">
+    <meta property="og:url" content="https://fendoris.com">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/fendoris-8-25.png" type="image/png">
+
     <style>
         html,
         body {
             height: 100%;
             margin: 0;
             padding: 0;
-        }
-
-        body {
-            min-height: 100vh;
             background: #181a1b;
             color: #f1f1f1;
+            font-family: system-ui, sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: system-ui, sans-serif;
         }
 
         .centered {
@@ -54,11 +66,12 @@
 
 <body>
     <script>
-        const path = window.location.pathname.toLowerCase().replace(/^\//, '');
+        const path = window.location.pathname.toLowerCase().replace(/^\/+|\/+$/g, '');
 
         const redirects = {
             "discord": "https://discord.com/invite/aqDbPCq7Ud",
-            "example": "https://example.com",
+            "github": "https://github.com/orgs/fendoris/repositories",
+            "example": "https://example.com"
         };
 
         const url = redirects[path];
@@ -67,12 +80,12 @@
             window.location.replace(url);
         } else {
             document.body.innerHTML = `
-                <div class="centered">
-                    <h1>404 – Page Not Found</h1>
-                    <p>Could not find a redirect for "<strong>${path}</strong>"</p>
-                    <a href="/">Go home</a>
-                </div>
-            `;
+        <div class="centered">
+          <h1>404 – Page Not Found</h1>
+          <p>Could not find a redirect for "<strong>${path}</strong>"</p>
+          <a href="/">Go home</a>
+        </div>
+      `;
         }
     </script>
 </body>
