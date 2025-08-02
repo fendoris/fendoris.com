@@ -17,7 +17,7 @@
         content="Fendoris, Fendoris.com, Fendoris Minecraft, Minecraft server, Minecraft Multiplayer Server, Discord Minecraft" />
     <meta name="author" content="Fendoris" />
 
-    <!-- Open Graph (Facebook, Discord, etc.) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Fendoris Minecraft Multiplayer Server" />
     <meta property="og:description"
         content="Explore and play on Fendoris — a friendly Minecraft and Discord community." />
@@ -30,11 +30,104 @@
     <meta name="twitter:title" content="Fendoris Minecraft Multiplayer Server" />
     <meta name="twitter:description" content="A Minecraft server and Discord community at fendoris.com" />
     <meta name="twitter:image" content="https://fendoris.com/fendoris-8-25.png" />
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #181a1b;
+            color: #f1f1f1;
+            font-family: system-ui, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .centered {
+            text-align: center;
+            max-width: 90vw;
+            width: 400px;
+            padding: 2rem;
+            background: rgba(30, 32, 34, 0.95);
+            border-radius: 1rem;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .logo {
+            width: 100%;
+            max-width: 200px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.07);
+        }
+
+        @media (max-width: 500px) {
+            .centered {
+                width: 95vw;
+                padding: 1rem;
+            }
+
+            .logo {
+                max-width: 160px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Welcome to fendoris.com</h1>
-    <p>This is the homepage of Fendoris — a Minecraft server and community.</p>
+    <div class="centered">
+        <img src="fendoris-8-25.png" alt="Fendoris Logo" class="logo" />
+        <div class="coming-soon-animated" id="comingSoonText" style="margin-top: 1.5rem; font-size: 1.5rem; font-weight: bold;">
+            Website Coming Soon
+        </div>
+        <a href="https://example.com" target="_blank" style="
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            background: #5865f2;
+            color: #fff;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        " onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865f2'">
+            Join our Discord Community
+        </a>
+    </div>
+    <style>
+        .coming-soon-animated {
+            background: linear-gradient(90deg,
+                    #f1f1f1 0%,
+                    #f1f1f1 40%,
+                    #f0951d 48%,
+                    #f0951d 52%,
+                    #f1f1f1 60%,
+                    #f1f1f1 100%);
+            background-size: 200% 100%;
+            background-position: 0% 0%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            animation: shine-pingpong 2.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes shine-pingpong {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            100% {
+                background-position: 100% 0%;
+            }
+        }
+    </style>
 </body>
 
 </html>
