@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+</head>
+
+<body>
+    <script>
+        const path = window.location.pathname.toLowerCase().replace(/^\//, '');
+
+        const redirects = {
+            "discord": "https://discord.com/invite/aqDbPCq7Ud",
+            "example": "https://example.com",
+        };
+
+        const url = redirects[path];
+
+        if (url) {
+            window.location.replace(url);
+        } else {
+            document.body.innerHTML = `
+      <h1>404 – Page Not Found</h1>
+      <p>Could not find a redirect for "<strong>${path}</strong>"</p>
+      <a href="/">Go home</a>
+    `;
+        }
+    </script>
+</body>
+
+</html>
