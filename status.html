@@ -132,21 +132,21 @@
         async function check() {
             try {
                 const d = await fetchStatus();
-
                 let reallyOnline = !!d.online;
 
-                if (!d.players || d.players.online === undefined || d.motd === undefined) {
-                    reallyOnline = false;
-                }
+                // Only mark offline if major info is missing or ping failed
+                const hasPlayers = typeof d?.players?.online === "number" && typeof d?.players?.max === "number";
+                const hasMotd = Array.isArray(d?.motd?.clean) ? d.motd.clean.length > 0 : !!d?.motd;
+                const hasVersion = d?.version || d?.version?.name;
 
-                if (d.debug && (d.debug.ping === false || d.debug.query === false)) {
-                    reallyOnline = false;
+                if (reallyOnline) {
+                    if (d?.debug?.ping === false) reallyOnline = false;
+                    else if (!hasPlayers && !hasMotd && !hasVersion) reallyOnline = false;
                 }
 
                 set("state", reallyOnline ? `<span class="ok">Online</span>` : `<span class="fail">Offline</span>`);
-                set("meta",
-                    `Checked ${new Date().toLocaleString()}<br>First request cached up to five minutes`);
-            } catch (e) {
+                set("meta", `Checked ${new Date().toLocaleString()}<br>First request cached up to five minutes`);
+            } catch {
                 set("state", `<span class="fail">ERROR</span>`);
                 set("meta", `Check failed at ${new Date().toLocaleString()}`);
             }
