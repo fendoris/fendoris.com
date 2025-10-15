@@ -2,12 +2,10 @@
 <html lang="en">
 
 <head>
-    <!-- Favicon -->
-    <link rel="icon" href="fendoris-8-25.png" type="image/png" />
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Fendoris Server Status</title>
+    <link rel="icon" href="fendoris-8-25.png" type="image/png" />
     <meta name="description"
         content="Check the live Fendoris Minecraft server status. Visit fendoris.com to play and connect via Discord.">
     <style>
@@ -56,7 +54,6 @@
             font-family: ui-monospace, Consolas, monospace;
             font-size: 3.5rem;
             font-weight: 800;
-            /* margin-top: .75rem; */
         }
 
         .ok {
@@ -65,11 +62,6 @@
 
         .fail {
             color: #ff4040;
-        }
-
-        .mono {
-            font-family: ui-monospace, Consolas, monospace;
-            font-size: 1.05rem
         }
 
         small {
@@ -132,19 +124,34 @@
             const res = await fetch(url, { cache: "no-store" });
             return res.json();
         }
+
         function set(id, html) { document.getElementById(id).innerHTML = html }
 
         async function check() {
             try {
                 const d = await fetchStatus();
-                const up = !!d.online;
-                set("state", up ? `<span class="ok">Online</span>` : `<span class="fail">Offline</span>`);
+
+                // Determine if it's really online — not just the Playit tunnel.
+                let reallyOnline = !!d.online;
+
+                // Force offline if players/motd are missing or if error fields appear
+                if (!d.players || d.players.online === undefined || d.motd === undefined) {
+                    reallyOnline = false;
+                }
+
+                // Some "error" text responses indicate failed data retrieval
+                if (d.debug && (d.debug.ping === false || d.debug.query === false)) {
+                    reallyOnline = false;
+                }
+
+                set("state", reallyOnline ? `<span class="ok">Online</span>` : `<span class="fail">Offline</span>`);
                 set("meta", `Checked ${new Date().toLocaleString()}`);
             } catch (e) {
                 set("state", `<span class="fail">ERROR</span>`);
                 set("meta", `Check failed at ${new Date().toLocaleString()}`);
             }
         }
+
         check();
         setInterval(check, 10000);
     </script>
